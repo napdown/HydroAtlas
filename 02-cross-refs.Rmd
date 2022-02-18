@@ -1,0 +1,2235 @@
+# Datasets
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE,out.width="120%"}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+
+
+```
+
+```{r global, cache.comments=FALSE,comment=FALSE,warning=FALSE,message=FALSE}
+
+library(sf)
+library(dplyr)
+library(readxl)
+library(flextable)
+library(magrittr)
+library(ggplot2)
+library(plotly)
+admin0_aoi<-st_read("o_nap_countries/admin0_aoi.shp")
+towns<-st_read("o_nap_countries/towns_aoi.shp")
+basin1<-st_read("o_nap_countries/basins1_aoi.shp")
+basin2<-st_read("o_nap_countries/basins2_aoi.shp")
+basin3<-st_read("o_nap_countries/basins3_aoi.shp")
+basin5<-st_read( "C:\\Users\\Makabe\\opennaps\\HydroAtlas\\o_nap_countries\\basins5_aoi.shp")
+basin8<-st_read( "C:\\Users\\Makabe\\opennaps\\HydroAtlas\\o_nap_countries\\basins8_aoi.shp")
+riv<-st_read( "C:\\Users\\Makabe\\opennaps\\HydroAtlas\\o_nap_countries\\rivers_aoi.shp")
+riv_bigdis<-riv%>%filter(riv$dis_m3_pyr>10)
+riv_bigclas<-riv%>%filter(riv$ORD_CLAS<3)
+capitals<-towns<-filter(towns, towns$featurecla=="Admin-0 capital")
+
+
+```
+
+
+```{r,eval=FALSE}
+#plot(admin0_aoi$geometry,bg = "#ffffff")
+plot(basin8[, basin8$glc_cl_smj],
+     breaks = "fisher",
+     nbreaks = 5,
+     border=NA,
+     pal = hcl.colors(5),
+     main = "Natural Discharge \n (m³/yr)",legend=T)
+#plot(riv$geometry,lwd=1/riv$ORD_CLAS*2,col='blue', add=TRUE)
+
+
+```
+
+## Natural Discharge {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,1)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+t1<-set_caption(t1, "Natural Discharge ")
+
+t1
+
+```
+
+```{r }
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff", color=NA,size=0.5, lty=2) +
+ 
+  geom_sf(data = riv_bigdis, lwd=0, mapping=aes(fill= riv_bigdis$dis_m3_pyr)) +
+  geom_sf(data = riv_bigdis, fill= riv_bigdis$dis_m3_pyr, color=riv_bigdis$dis_m3_pyr) +
+  scale_fill_viridis_c(name=paste('m³/year'))+
+  geom_sf(data= basin3, lty=1, lwd=0.85, fill=NA)+
+  geom_sf(data = capitals, color="grey40") +
+  #geom_sf_label(data = capitals, aes(label=name),size=2.4, position = "identity")+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Natural Discharge")
+
+```
+
+## Land Surface Runoff {-}
+
+```{r}
+library(readxl)
+library(flextable)
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,2)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Land Surface Runoff ")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, lwd=0, mapping=aes(fill=run_mm_syr),color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('mm/yr'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40", size=4,pch=20, alpha=0.9, show.legend = T) +
+  #geom_sf_label(data = capitals, aes(label=name),size=1.8)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Land Surface Runoff")
+  #theme(legend.position = 'bottom', legend.title = element_text('mm/yr'))
+
+```
+
+## Inundation Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,3)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Inundation Extent ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=inu_pc_slt), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Inundation extent'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Inundation Extent")
+
+```
+
+## Limnicity (Percent Lake Area) {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,4)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Limnicity (Percent Lake Area) ")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=lka_pc_sse*0.1), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Limnicity (Percent Lake Area)")
+
+```
+
+## Lake Volume {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,5)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Lake Volume ")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=lkv_mc_usu*0.001), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Upstream Total \n million m³'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Lake Volume")
+
+```
+
+## Reservoir Volume {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,6)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Reservoir Volume ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=rev_mc_usu), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Upstream Total \n million m³'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Reservoir Volume")
+
+```
+
+## Degree of Regulation {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,7)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Degree of Regulation ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  #geom_sf(data = basin5, aes(fill=dor_pc_pva), color=NA) +
+  #scale_fill_viridis_c(direction = -1, name=paste('DOR \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis, color=riv_bigdis$dis_m3_pyr) +
+  #scale_fill_viridis_c(name=paste('DOR \n %'))+
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  ggtitle("Degree of Regulation")
+
+```
+
+## River Area {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,8)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "River Area ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=ria_ha_ssu), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n hectares'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("River Area")
+
+```
+
+## River Volume {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,9)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "River Volume ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=riv_tc_ssu*0.001), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Total Volume \n \'000 m³'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("River Volume")
+
+```
+
+## Groundwater Table Depth {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,10)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Groundwater Table Depth ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=gwt_cm_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average Depth \n cm'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Groundwater Table Depth")
+
+```
+
+## Elevation {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,11)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Elevation ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=ele_mt_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average Elevation \n m a.s.l'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Elevation")
+
+```
+
+## Terrain Slope {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,12)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Terrain Slope ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=basin5$slp_dg_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average Slope \n degrees'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Terrain Slope")
+
+```
+
+## Stream Gradient {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,13)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Stream Gradient ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=sgr_dk_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average Gradient \n decimeters per km'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Stream Gradient")
+
+```
+
+## Climate Zones {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,14)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Climate Zones ")
+
+t1
+
+```
+
+
+```{r}
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  
+  geom_sf(data = basin8, aes(fill=clz_cl_smj), color=NA) +
+  scale_fill_gradientn(breaks=c(7,9,11,12,13,14,15,17,18), 
+                       labels=c("Cold and mesic","Cool temperate and xeric", "Warm temperate and mesic","Warm temperate and xeric", "Hot and mesic", "Hot and dry", "Hot and arid","Extremely hot and xeric", "Extremely hot and moist"), 
+                       colours = c("#007248","#38a700", "#98e500", "#d0ff73", "#faf5f0","#efdfcd","#d9af82","#e67b24", "#7d4204"
+                                   ),limits=c(6.8,18.5),  
+                 space = "Lab",name=paste("Classes"),na.value = NA, guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
+ 
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data = riv_bigdis, color='#8282FF') +
+  geom_sf(data = capitals, fill="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text", x=31, y=-34.5, label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Climate Zones")+
+  theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=7),legend.position = c(1.24, .24), legend.background = element_blank())
+
+```
+
+
+## Climate Strata {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,15)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Climate Strata ")
+
+t1
+
+```
+
+
+```{r }
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=cls_cl_smj), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste(''))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.6, bgcolor='none')+
+  geom_sf_text(data = basin5, aes(label=cls_cl_smj),size=3, check_overlap = T)+
+  ggtitle("Climate Strata")+
+  #annotate("text", x=34, y=-34.5, label = "*Check table[clz.cl]for classes")+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+
+  theme(legend.position = 'none')
+
+```
+
+
+
+## Air Temperature {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,16)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Air Temperature")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=tmp_dc_syr), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n °C'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Air Temperature")
+
+```
+
+
+## Precipitation {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,17)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Precipitation")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=basin5$pre_mm_syr), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n mm'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Precipitation")
+
+```
+
+## Potential Evapotranspiration {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,18)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Potential Evapotranspiration")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=pet_mm_syr), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n mm'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Potential Evapotranspiration")
+
+```
+
+## Actual Evapotranspiration {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,19)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Actual Evapotranspiration")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=aet_mm_syr), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n mm'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Actual Evapotranspiration")
+
+```
+
+## Global Aridity Index {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,20)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Global Aridity Index")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=basin5$ari_ix_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average AI \n value'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Global Aridity Index")
+
+```
+
+## Climate Moisture Index  {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,21)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Climate Moisture Index")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=cmi_ix_syr), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n index value'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Climate Moisture Index")
+
+```
+
+## Snow Cover Extent {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,22)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Snow Cover Extent")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=snw_pc_syr), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n % cover'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Snow Cover Extent")
+
+```
+
+## Land cover Classes {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,23)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Land cover Classes")
+
+t1
+
+```
+
+```{r }
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  
+  geom_sf(data = basin8, aes(fill=glc_cl_smj), color=NA) +
+  scale_fill_gradientn(breaks=c(20,18.5, 16, 14,12.5, 11,8, 6, 4,2), 
+                       labels=c("Water Body","Bare Area", "Cultivated and managed land", "Herbaceous cover, sparse", "Herbaceous cover, closed-open", "Shrub cover, closed-open", "Tree cover, regulary flooded", "Tree cover, mixed leaf type","Tree cover, needle-leaved","Tree cover, broad-leaved"), 
+                       colours = c("#267300", "#72a700", "#6fa701","#89cd63","#c4f26f","#a9a800",
+                                   "#cbcc64",  "#f678b5", "#ffe9bb","#005be7"),limits=c(1,20),  
+                 space = "Lab",name=paste("Land Cover"),na.value = NA, guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
+ 
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data = riv_bigdis, color='#8282FF') +
+  geom_sf(data = capitals, fill="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Land Cover Classes")+
+  theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=7),legend.position = c(1.24, .24), legend.background = element_blank())
+
+
+```
+
+ 
+## Land Cover Extent {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,24)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Land Cover Extent")
+
+t1
+
+```
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=glc_pc_s01), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Land Cover Extent: Tree cover, broadleaved, evergreen")
+
+```
+
+## Potential Natural Vegetation Classes {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,25)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Potential Natural Vegetation Classes")
+
+t1
+
+```
+
+
+```{r }
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  
+  geom_sf(data = basin8, aes(fill=pnv_cl_smj), color=NA) +
+  scale_fill_gradientn(breaks=c(1,2,3,9,10,11,12,14), 
+                       labels=c("Tropical evergreen forest","Tropical deciduous forest", "Temperate broadleaf \nevergreen forest", "Savanna", "Grassland/steppe", "Dense shrubland", "Open shrubland", "Desert"), 
+                       colours = c("#267300", "#72a700", "#6fa701","#89cd63","#c4f26f","#a9a800",
+                                   "#cbcc64",  "#f678b5"),limits=c(0,14),  
+                 space = "Lab",name=paste("Classes"),na.value = NA, guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
+ 
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data = riv_bigdis, color='#8282FF') +
+  geom_sf(data = capitals, fill="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text", x=30, y=-34, label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Potential Natural Vegetation Classes")+
+  theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=7),legend.position = c(1.24, .24), legend.background = element_blank())
+
+
+
+```
+
+
+## Potential Natural vegetation Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,26)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Potential Natural vegetation Extent:Tropical Evergreen ")
+
+t1
+
+```
+
+
+```{r}
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=pnv_pc_s01), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Potential Natural Vegtation Extent: Tropical Evergreen")
+
+```
+
+## Wetland Classes {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,27)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Wetland Classes")
+
+t1
+
+```
+
+```{r }
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  
+  geom_sf(data = basin8, aes(fill=wet_cl_smj), color=NA) +
+  scale_fill_gradientn(breaks=c(1,2,3,4,6,7,9), 
+                       labels=c("Lake","Reservoir", "River", "Freshwater marsh, floodplain", "Coastal wetland \n(incl. mangove, estuary, \ndelta, lagoon)", "Pan, brackish/saline wetland", "Intermittent wetland/lake"), 
+                       colours = c("#002573", "#e60000", "#7e00a4","#0167eb","#fca57b","#fffa06",
+                                   "71defd"),limits=c(1,9),  
+                 space = "Lab",name=paste("Classes"),na.value = 'grey', guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
+ 
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data = riv_bigdis, color='#8282FF') +
+  geom_sf(data = capitals, fill="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text", x=34, y=-33, label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Wetland Classes")+
+  annotate("text", x=34, y=-34.5, label = "*Grey area=No values")+
+ theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=8),legend.position = c(1.20, .24), legend.background = element_blank())
+
+
+```
+
+
+
+## Wetland Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,28)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Wetland Extent")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=wet_pc_s01), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  ggtitle("Wetland Extent: Class 01")
+
+```
+
+## Forest Cover Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,29)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Forest Cover Extent ")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=for_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Forest Cover Extent")
+
+```
+
+## Cropland Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,30)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Cropland Extent")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=crp_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Cropland Extent")
+
+```
+
+## Pasture Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,31)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Pasture Extent")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=pst_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Pasture Extent")
+
+```
+
+## Irrigated Area Extent (Equipped) {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,32)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Irrigated Area Extent (Equipped)")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=crp_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Irrigated Area Extent (Equipped)")
+
+```
+
+## Glacier Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,33)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Glacier Extent")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=gla_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Glacier Extent")
+
+```
+
+## Permafrost Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,34)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Permafrost Extent ")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=prm_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Permafrost Extent")
+
+```
+
+## Protected Area Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,35)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Protected Area Extent ")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=pac_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Protected Area Extent")
+
+```
+
+## Terrestrial Biomes {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,36)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Terrestrial Biomes")
+
+t1
+
+```
+
+```{r }
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  
+  geom_sf(data = basin8, aes(fill=tbi_cl_smj), color=NA) +
+  scale_fill_gradientn(breaks=c(1,7,10,12,13), 
+                       labels=c("Tropical & Subtropical \nMoist Broadleaf Forests","Tropical & Subtropical \nGrasslands, Savannas & \nShrublands", "Montane Grasslands &\n Shrublands", "Mediterranean Forests, \nWoodlands & Scrub", "Deserts & Xeric Shrublands"), 
+                       colours = c("#267300", "#72a700", "#6fa701","#89cd63","#c4f26f"),limits=c(0,13),  
+                 space = "Lab",name=paste("Classes"),na.value = NA, guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
+ 
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data = riv_bigdis, color='#8282FF') +
+  geom_sf(data = capitals, fill="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Terrestrial Biomes")
+ theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=8),legend.position = c(1.20, .24), legend.background = element_blank())
+
+
+```
+
+
+## Terrestrial Ecoregions {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,37)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Terrestrial Ecoregions")
+
+t1
+
+```
+
+
+```{r }
+
+#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
+                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=tec_cl_smj), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_line(aes(x=35, y=-35), label="Basin boundary")+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.6, bgcolor='none')+
+  geom_sf_text(data = basin5, aes(label=tec_cl_smj),size=3, check_overlap = T)+
+  ggtitle("Terrestrial Ecoregions")+
+  annotate("text", x=34, y=-34.5, label = "*Check table for classes")+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+
+  theme(legend.position = 'none')
+
+```
+
+* Check table [tec_cl] for class names
+
+## Freshwater Major Habitat Types {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,38)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Freshwater Major Habitat Types")
+
+t1
+
+```
+
+
+```{r }
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  
+  geom_sf(data = basin5, aes(fill=fmh_cl_smj), color=NA) +
+  scale_fill_gradientn(breaks=c(1.2,3,4,5,6,8,9,10.1), 
+                       labels=c("LargeLakes","Montane freshwaters", "Xeric freshwaters \nand endorheic basins", "Temperate coastal rivers", "Temperate upland rivers", "Tropical and subtropical \ncoastal rivers", "Tropical and subtropical \nupland rivers","Tropical and subtropical \nfloodplain rivers \nand wetlands"), 
+                       colours = c("#02c5ff", "#a63800", "#f4c97a","#004da7","#a83c7a","#38a700",
+                                   "276300","#779c33"),limits=c(0.8,10.2),  
+                 space = "Lab",name=paste("Classes"),na.value = 'grey', guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
+ 
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data = riv_bigdis, color='#8282FF') +
+  geom_sf(data = capitals, fill="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Freshwater Major Habitat Types")+
+theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=8),legend.position = c(1.20, .24), legend.background = element_blank())
+
+
+```
+
+
+## Freshwater Ecoregions {-}
+```{r}
+
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,39)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Freshwater Ecoregions")
+
+t1
+
+```
+
+```{r }
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=fec_cl_smj), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste(''))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.6, bgcolor='none')+
+  geom_sf_text(data = basin5, aes(label=fec_cl_smj),size=3, check_overlap = T)+
+  ggtitle("Freshwater Ecoregions")+
+  annotate("text", x=34, y=-34.5, label = "*Check table for classes")+
+  annotate("text", x=34, y=-33, label = "_____ Basin boundary", color="grey40")+
+
+  theme(legend.position = 'none')
+
+```
+
+
+* Check table [fec_cl] for class names 
+
+
+## Clay Fraction in Soil {-}
+```{r}
+
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,40)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Clay Fraction in Soil")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=cly_pc_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average \nfraction in\n top 5cm \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Clay Fraction in Soil")
+
+```
+
+## Silt Fraction in Soil {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,41)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Silt Fraction in Soil")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=slt_pc_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average \nfraction in \ntop 5cm \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Silt Fraction in Soil")
+
+```
+
+## Sand Fraction in Soil {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,42)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Sand Fraction in Soil")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=snd_pc_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average \nfraction in \ntop 5cm \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Sand Fraction in Soil")
+
+```
+
+## Organic Carbon Content in Soil {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,43)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Organic Carbon Content in Soil")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=soc_th_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average carbon \nstock in top 5cm \n tonnes/hectare'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Organic Carbon Content in Soil")
+
+```
+
+## Soil Water Content {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,44)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Soil Water Content")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=snw_pc_syr), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average \nwater content \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Soil Water Content")
+
+```
+
+## Lithological Classes {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,45)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Lithological Classes")
+
+t1
+
+```
+
+```{r }
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  
+  geom_sf(data = basin8, aes(fill=lit_cl_smj), color=NA) +
+  scale_fill_gradientn(breaks=c(1,3,6,8,9,10,11), 
+                       labels=c("Unconsolidated Sediments (SU)","Siliciclastic Sedimentary Rocks (SS)", "Carbonate Sedimentary Rocks (SC)", "Metamorphic Rocks (MT)", "Acid Plutonic Rocks (PA)", "Intermediate Volcanic Rocks (VI)", "Water Bodies (WB)"), 
+                       colours = c("#7473c8", "#458970", "#4d0074","#014c73","#6777ce","#71004d",
+                                   "03c2ff"),limits=c(0,11),  
+                 space = "Lab",name=paste("Classes"),na.value = 'grey', guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
+ 
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data = riv_bigdis, color='#8282FF') +
+  geom_sf(data = capitals, fill="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Lithological Classes")+
+   theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=7),legend.position = c(1.24, .24), legend.background = element_blank())
+
+
+```
+
+
+
+## Karst Area Extent {-}
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,46)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Karst Area Extent")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=kar_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste(' '))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Karst Area Extent")
+
+```
+
+## Soil Erosion {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,47)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Soil Erosion")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=ero_kh_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average rate \n kg/hectare/year'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Soil Erosion")
+
+```
+
+## Population Count {-}
+
+```{r}
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,48)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Population Count")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=pop_ct_ssu), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Total population \n number of people'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Population Count")
+
+```
+
+## Population Density {-}
+
+```{r}
+
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,49)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Population Density")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=ppd_pk_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Population density \n people/km²'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Population Density")
+
+```
+
+## Urban Extent {-}
+
+```{r}
+
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,50)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Urban Extent ")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=urb_pc_sse), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Urban Extent")
+
+```
+
+## Nighttime Lights {-}
+
+```{r}
+
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,51)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Nighttime Lights ")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=nli_ix_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average radiance \n digital number'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Nighttime Lights")
+
+```
+
+## Road Density {-}
+
+```{r}
+
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,52)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Road Density")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=rdd_mk_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average density \n meters/km²'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Road Density")
+
+```
+
+## Human Footprint {-}
+
+```{r}
+
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,53)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Human Footprint")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=hft_ix_s09), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average footprint \nindex value'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Human Foootprint:2009")
+
+```
+
+## Global Admnistrative Areas {-}
+
+```{r}
+
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,54)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Global Admnistrative Areas")
+
+t1
+
+```
+
+```{r }
+
+ggplot() + 
+  
+  geom_sf(data = basin5, aes(fill=gad_id_smj), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste(''))+
+  #geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data = riv_bigdis,fill="#4fffff") +
+  #geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4, bgcolor='none')+
+  #geom_sf_text(data = basin5, aes(label=gad_id_smj),size=3, check_overlap = T)+
+  #geom_sf(data = admin0_aoi, fill=NA, color='gray') +
+  ggtitle("Global Admnistrative Areas")+
+  annotate("text", x=16, y=-12, label = "Angola")+
+  annotate("text", x=24, y=-20, label = "Botswana")+
+  annotate("text", x=16, y=-22, label = "Namibia")+
+  annotate("text", x=31.5, y=-26.5, label = "Lesotho")+
+  annotate("text", x=33.4, y=-13, label = "Malawi")+
+  annotate("text", x=35, y=-18, label = "Mozambique")+
+  annotate("text", x=23, y=-30, label = "South Africa")+
+  annotate("text", x=28.4, y=-29.6, label = "Eswatini")+
+  annotate("text", x=25, y=-14, label = "Zambia")+
+  annotate("text", x=30, y=-20, label = "Zimbabwe")+
+  theme(legend.position = 'none')
+
+```
+
+
+## Gross Domestic Product {-}
+
+```{r}
+library(readxl)
+library(flextable)
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,55)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Gross Domestic Product")
+
+t1
+
+```
+
+
+```{r}
+
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=gdp_ud_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average GDP\n per capita \n us $'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Gross Domestic Product")
+
+```
+
+## Human Development Index {-}
+
+```{r}
+library(readxl)
+library(flextable)
+attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
+att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+att_df$V0<-rownames(att_df)
+
+
+t1<-flextable(att_df[,c(57,56)])
+t1<-delete_part(t1, part = 'header') 
+t1<-width(t1,j=2, width = 25, unit = "in")
+t1<-bold(t1,i=3)
+t1<-bold(t1, j=1)
+t1<-hline(t1, part="all" )
+#t1<-vline(t1, j=1 )
+#t1<-set_caption(t1, "Human Development Index")
+
+t1
+
+```
+
+
+```{r}
+
+ggplot() + 
+  #geom_sf(data = admin0_aoi, fill="#ffffff") +
+  geom_sf(data = basin5, aes(fill=hdi_ix_sav), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('Average HDI \nindex value'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data = riv_bigdis,fill="#4fffff") +
+  geom_sf(data = capitals, color="grey40") +
+  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
+  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  ggtitle("Human Development Index")
+
+```

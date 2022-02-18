@@ -1,0 +1,223 @@
+# HydroATLAS_v10_Legends
+
+## HydroATLAS v1.0 Legends {-}
+```{r, echo=F}
+library(readxl)
+library(flextable)
+leg.attr<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'HydroATLAS v1.0 Legends')
+#att_df<-as.data.frame(t(attributes[,-c(5,6,7)]))
+#att_df$V0<-rownames(att_df)
+
+t1<-flextable(leg.attr,col_keys = names(leg.attr),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Climate Zones (clz.cl) {-}
+```{r, echo=F}
+library(readxl)
+clz.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'clz_cl')
+
+t1<-flextable(clz.cl,col_keys = names(clz.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Climate Strata (cls.cl) {-}
+```{r, echo=F}
+library(readxl)
+cls.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'cls_cl')
+
+t1<-flextable(cls.cl,col_keys = names(cls.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Land cover classes (glc.cl) {-}
+```{r, echo=F}
+library(readxl)
+glc.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'glc_cl')
+
+t1<-flextable(glc.cl,col_keys = names(glc.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Potential Natural Vegetation Classes (pnv.cl) {-}
+```{r, echo=F}
+library(readxl)
+pnv.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'pnv_cl')
+
+t1<-flextable(pnv.cl,col_keys = names(pnv.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Wetland Classes (wet.cl) {-}
+```{r, echo=F}
+library(readxl)
+wet.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'wet_cl')
+
+t1<-flextable(wet.cl,col_keys = names(wet.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Terrestrial Biomes (tbi.cl) {-}
+```{r, echo=F}
+library(readxl)
+tbi.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'tbi_cl')
+
+t1<-flextable(tbi.cl,col_keys = names(tbi.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Terrestrial Ecoregions (tec.cl) {-}
+```{r, echo=F}
+library(readxl)
+tec.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'tec_cl')
+
+t1<-flextable(tec.cl,col_keys = names(tec.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## "Freshwater Major Habitat Types (fmh.cl) {-}
+```{r, echo=F}
+library(readxl)
+fmh.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'fmh_cl')
+
+t1<-flextable(fmh.cl,col_keys = names(fmh.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Freshwater Ecoregions (fec.cl) {-}
+```{r, echo=F}
+library(readxl)
+fec.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'fec_cl')
+
+t1<-flextable(fec.cl,col_keys = names(fec.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Lithological Classes (lit.cl) {-}
+```{r, echo=F}
+library(readxl)
+lit.cl<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'lit_cl')
+
+t1<-flextable(lit.cl,col_keys = names(lit.cl),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+## Global Admnistrative Areas( gad.id) {-}
+```{r, echo=F}
+library(readxl)
+gad.id<-read_excel("HydroATLAS_v10_Legends.xlsx", sheet = 'gad_id')
+
+t1<-flextable(gad.id,col_keys = names(gad.id),
+  cwidth = 3,
+  cheight = 0.01,
+  defaults = list(),
+   theme_booktabs())
+t1<-fontsize(t1,part = 'all', size = 8)
+t1<-border_outer(t1,part = 'all', border = NULL)
+t1<-border_inner(t1,part = 'all', border = NULL)
+t1<-bold(t1, part = 'header')
+t1
+
+```
+
+
+

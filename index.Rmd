@@ -1,0 +1,38 @@
+--- 
+title: "HydroAtlas"
+author: "A Team"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+ A global compendium of hydro-environmental sub-basin and river reach characteristics at 15 arc-second resolution 
+link-citations: yes
+github-repo: napdown/HydroAtlas-SnAfrica
+---
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+# Introduction {-} 
+This is a regionally customized compilation of standardized and readily-available hydro-environmental attribute information for all catchments and rivers in Angola, Botswana, Namibia, Lesotho, Malawi, Mozambique, South Africa, Swaziland, Zambia and Zimbabwe.  
+
+This version has been compiled from the global HydroAtlas version 1.0 
+The  data layers contain 56 hydro-environmental variables at sub-basin and river reach level, broken down into 256 individual attributes. 
+This data represents data on   
+
+* Hydrology
+* Climate
+* Physiography
+* Land cover and Use
+* Soils and Geology
+* Anthropogenic influences
+
+Please consult the [Technical Documentation Version 1.0] guidance on database structure and content.
+
