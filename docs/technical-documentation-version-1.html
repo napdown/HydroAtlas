@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Technical Documentation Version 1.0 | HydroAtlas</title>
+  <meta name="description" content="A global compendium of hydro-environmental sub-basin and river reach characteristics at 15 arc-second resolution" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Technical Documentation Version 1.0 | HydroAtlas" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A global compendium of hydro-environmental sub-basin and river reach characteristics at 15 arc-second resolution" />
+  <meta name="github-repo" content="napdown/HydroAtlas-SnAfrica" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Technical Documentation Version 1.0 | HydroAtlas" />
+  
+  <meta name="twitter:description" content="A global compendium of hydro-environmental sub-basin and river reach characteristics at 15 arc-second resolution" />
+  
+
+<meta name="author" content="A Team" />
+
+
+<meta name="date" content="2022-02-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="datasets.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">HydroAtlas Attributes for Southern African Countries</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html"><i class="fa fa-check"></i>Technical Documentation Version 1.0</a>
+<ul>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#background-and-introduction"><i class="fa fa-check"></i>Background and introduction</a></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#methods-and-data-characteristics"><i class="fa fa-check"></i>Methods and data characteristics</a>
+<ul>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#data-format-and-distribution"><i class="fa fa-check"></i>Data format and distribution</a></li>
+</ul></li>
+<li><a href="technical-documentation-version-1.html#license-disclaimer-and-acknowledgement"><strong>License, disclaimer and acknowledgement</strong></a>
+<ul>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#license-agreement"><i class="fa fa-check"></i>License agreement</a></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#disclaimer-of-warranty"><i class="fa fa-check"></i>Disclaimer of warranty</a></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#limitation-of-liability"><i class="fa fa-check"></i>Limitation of liability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#data-citations-and-acknowledgements"><i class="fa fa-check"></i>Data citations and acknowledgements</a>
+<ul>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#references"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="0.0.1" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#appendix-1-attributes-included-in-version-1.0-of-hydroatlas-for-details-see-hydroatlas-catalogs"><i class="fa fa-check"></i><b>0.0.1</b> Appendix 1: Attributes included in version 1.0 of HydroATLAS (for details see HydroATLAS catalogs)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="datasets.html"><a href="datasets.html"><i class="fa fa-check"></i><b>1</b> Datasets</a>
+<ul>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#natural-discharge"><i class="fa fa-check"></i>Natural Discharge</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#land-surface-runoff"><i class="fa fa-check"></i>Land Surface Runoff</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#inundation-extent"><i class="fa fa-check"></i>Inundation Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#limnicity-percent-lake-area"><i class="fa fa-check"></i>Limnicity (Percent Lake Area)</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#lake-volume"><i class="fa fa-check"></i>Lake Volume</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#reservoir-volume"><i class="fa fa-check"></i>Reservoir Volume</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#degree-of-regulation"><i class="fa fa-check"></i>Degree of Regulation</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#river-area"><i class="fa fa-check"></i>River Area</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#river-volume"><i class="fa fa-check"></i>River Volume</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#groundwater-table-depth"><i class="fa fa-check"></i>Groundwater Table Depth</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#elevation"><i class="fa fa-check"></i>Elevation</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#terrain-slope"><i class="fa fa-check"></i>Terrain Slope</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#stream-gradient"><i class="fa fa-check"></i>Stream Gradient</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#climate-zones"><i class="fa fa-check"></i>Climate Zones</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#climate-strata"><i class="fa fa-check"></i>Climate Strata</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#air-temperature"><i class="fa fa-check"></i>Air Temperature</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#precipitation"><i class="fa fa-check"></i>Precipitation</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#potential-evapotranspiration"><i class="fa fa-check"></i>Potential Evapotranspiration</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#actual-evapotranspiration"><i class="fa fa-check"></i>Actual Evapotranspiration</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#global-aridity-index"><i class="fa fa-check"></i>Global Aridity Index</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#climate-moisture-index"><i class="fa fa-check"></i>Climate Moisture Index</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#snow-cover-extent"><i class="fa fa-check"></i>Snow Cover Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#land-cover-classes"><i class="fa fa-check"></i>Land cover Classes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#land-cover-extent"><i class="fa fa-check"></i>Land Cover Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#potential-natural-vegetation-classes"><i class="fa fa-check"></i>Potential Natural Vegetation Classes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#potential-natural-vegetation-extent"><i class="fa fa-check"></i>Potential Natural vegetation Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#wetland-classes"><i class="fa fa-check"></i>Wetland Classes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#wetland-extent"><i class="fa fa-check"></i>Wetland Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#forest-cover-extent"><i class="fa fa-check"></i>Forest Cover Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#cropland-extent"><i class="fa fa-check"></i>Cropland Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#pasture-extent"><i class="fa fa-check"></i>Pasture Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#irrigated-area-extent-equipped"><i class="fa fa-check"></i>Irrigated Area Extent (Equipped)</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#glacier-extent"><i class="fa fa-check"></i>Glacier Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#permafrost-extent"><i class="fa fa-check"></i>Permafrost Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#protected-area-extent"><i class="fa fa-check"></i>Protected Area Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#terrestrial-biomes"><i class="fa fa-check"></i>Terrestrial Biomes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#terrestrial-ecoregions"><i class="fa fa-check"></i>Terrestrial Ecoregions</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#freshwater-major-habitat-types"><i class="fa fa-check"></i>Freshwater Major Habitat Types</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#freshwater-ecoregions"><i class="fa fa-check"></i>Freshwater Ecoregions</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#clay-fraction-in-soil"><i class="fa fa-check"></i>Clay Fraction in Soil</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#silt-fraction-in-soil"><i class="fa fa-check"></i>Silt Fraction in Soil</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#sand-fraction-in-soil"><i class="fa fa-check"></i>Sand Fraction in Soil</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#organic-carbon-content-in-soil"><i class="fa fa-check"></i>Organic Carbon Content in Soil</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#soil-water-content"><i class="fa fa-check"></i>Soil Water Content</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#lithological-classes"><i class="fa fa-check"></i>Lithological Classes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#karst-area-extent"><i class="fa fa-check"></i>Karst Area Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#soil-erosion"><i class="fa fa-check"></i>Soil Erosion</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#population-count"><i class="fa fa-check"></i>Population Count</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#population-density"><i class="fa fa-check"></i>Population Density</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#urban-extent"><i class="fa fa-check"></i>Urban Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#nighttime-lights"><i class="fa fa-check"></i>Nighttime Lights</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#road-density"><i class="fa fa-check"></i>Road Density</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#human-footprint"><i class="fa fa-check"></i>Human Footprint</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#global-admnistrative-areas"><i class="fa fa-check"></i>Global Admnistrative Areas</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#gross-domestic-product"><i class="fa fa-check"></i>Gross Domestic Product</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#human-development-index"><i class="fa fa-check"></i>Human Development Index</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html"><i class="fa fa-check"></i><b>2</b> HydroATLAS_v10_Legends</a>
+<ul>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#hydroatlas-v1.0-legends"><i class="fa fa-check"></i>HydroATLAS v1.0 Legends</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#climate-zones-clz.cl"><i class="fa fa-check"></i>Climate Zones (clz.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#climate-strata-cls.cl"><i class="fa fa-check"></i>Climate Strata (cls.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#land-cover-classes-glc.cl"><i class="fa fa-check"></i>Land cover classes (glc.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#potential-natural-vegetation-classes-pnv.cl"><i class="fa fa-check"></i>Potential Natural Vegetation Classes (pnv.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#wetland-classes-wet.cl"><i class="fa fa-check"></i>Wetland Classes (wet.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#terrestrial-biomes-tbi.cl"><i class="fa fa-check"></i>Terrestrial Biomes (tbi.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#terrestrial-ecoregions-tec.cl"><i class="fa fa-check"></i>Terrestrial Ecoregions (tec.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#freshwater-major-habitat-types-fmh.cl"><i class="fa fa-check"></i>“Freshwater Major Habitat Types (fmh.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#freshwater-ecoregions-fec.cl"><i class="fa fa-check"></i>Freshwater Ecoregions (fec.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#lithological-classes-lit.cl"><i class="fa fa-check"></i>Lithological Classes (lit.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#global-admnistrative-areas-gad.id"><i class="fa fa-check"></i>Global Admnistrative Areas( gad.id)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HydroAtlas</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="technical-documentation-version-1.0" class="section level1 unnumbered">
+<h1>Technical Documentation Version 1.0</h1>
+<div id="background-and-introduction" class="section level2 unnumbered">
+<h2>Background and introduction</h2>
+<p>The goal of HydroATLAS is to provide a broad user community with a standardized compendium of
+hydro-environmental attribute information for all watersheds and rivers of the world at high
+spatial resolution. Version 1.0 of HydroATLAS offers data for 56 variables, partitioned into 281
+individual attributes and organized in six categories: hydrology; physiography; climate; land cover
+&amp; use; soils &amp; geology; and anthropogenic influences (Table 1 and Appendix 1). HydroATLAS
+derives the hydro-environmental attributes by reformatting original data from well-established
+2
+global digital maps. The attributes are then linked to hierarchically nested sub-basins at multiple
+scales, as well as to individual river reaches, both extracted from the global HydroSHEDS database
+at 15 arc-second (~500 m) resolution. The sub-basin and river reach information is offered in two
+companion datasets: BasinATLAS and RiverATLAS. The standardized format of HydroATLAS
+ensures easy applicability while the inherent topological information supports basic network
+functionality such as identifying up- and downstream connections. HydroATLAS is fully compatible
+with other products of the overarching HydroSHEDS project enabling versatile hydro-ecological
+assessments. Updates of HydroATLAS are envisioned as new data become available.
+The HydroATLAS documentation is organized in two parts: Part 1 (this document) provides an
+overview of the database and general explanations. Part 2 is provided in two alternative files:
+‘BasinATLAS_Catalog’ or ‘RiverATLAS_Catalog.’ Each catalog file first provides a summary table
+listing all hydro-environmental variables and their basic characteristics. This is followed by detailed
+information on each individual variable, including source data descriptions, units, conversion
+methodology, and citations. Each variable is presented on one standardized sheet which includes a
+map at global extent indicating the spatial distribution of values of the respective variable. Note that
+the summary table and information sheets are hyperlinked within each catalog.
+The development of HydroATLAS is fully described in Linke et al. (2019). For data citations and
+acknowledgements see section 4.4 below. General citations of HydroATLAS should refer to:</p>
+<p>Linke, S., Lehner, B., Ouellet Dallaire, C., Ariwi, J., Grill, G., Anand, M., Beames, P., Burchard-Levine, V., Maxwell, S., Moidu, H., Tan, F., Thieme, M. (2019). Global hydro-environmental sub-basin and river reach characteristics at high spatial resolution. Scientific Data 6: 283. DOI: <a href="https://doi.org/10.1038/s41597-019-0300-6">10.1038/s41597-019-0300-6.</a></p>
+<p><img src="table1_categories.png" /></p>
+</div>
+<div id="methods-and-data-characteristics" class="section level2 unnumbered">
+<h2>Methods and data characteristics</h2>
+<p>The methods used to create HydroATLAS are fully described in Linke et al. (2019). All spatial units
+of HydroATLAS, i.e. either sub-basin polygons or river reach lines, were extracted from World
+Wildlife Fund’s HydroSHEDS database (Lehner et al. 2008; Lehner and Grill 2013) at a grid
+resolution of 15 arc-seconds (approx. 500 m at the equator). For more information please refer to
+the Technical Documentation of HydroSHEDS at <a href="http://www.hydrosheds.org"></a>.
+HydroATLAS consists of two complementary parts: BasinATLAS and RiverATLAS. BasinATLAS
+provides hydro-environmental attributes for sub-basins (polygons). RiverATLAS provides hydro-environmental attributes for stream and river reaches (line segments).
+Basin and sub-basin delineations have been pre-processed as a derivative of HydroSHEDS at 15 arc-second resolution and are available as a stand-alone product termed HydroBASINS (for details see <a href="https://www.hydrosheds.org/page/hydrobasins"></a>). The HydroBASINS dataset offers a suite of 12
+layers, each containing nested sub-basins that were subdivided and coded using the topological
+concept of the Pfafstetter system, which provides a methodology for the breakdown of sub-basins
+at different scales in a hierarchical and systematic manner (Figure 1a). It should be noted, however,that at the lowest Pfafstetter levels (i.e. 1-3) multiple river basins may be lumped into larger regions, and for coastal sub-basins (at any level) multiple smaller rivers may be lumped into one sub-basin—in these cases, the association of some particular attributes (such as river discharge) is ambiguous and the assigned attribute value may refer to only one river within the sub-basin unit.
+Also, a global river network delineation has been extracted from HydroSHEDS at 15 arc-second
+resolution and is available as a stand-alone product termed HydroRIVERS (for details see
+<a href="https://www.hydrosheds.org/page/hydrorivers"></a>). For this network, rivers have been defined to
+start at all pixels where the accumulated upstream catchment area exceeds 10 km2, or where the
+long-term average natural discharge exceeds 0.1 cubic meters per second, resulting in a line
+network consisting of individual stream and river reaches (Figure 1b).</p>
+<div class="figure">
+<img src="pfafstetter.png" alt="" />
+<p class="caption"><strong>Figure 1: Overview of Pfafstetter sub-basin coding scheme used in BasinATLAS (a); and river reach concept used in RiverATLAS (b). Sub-basins are nested within 12 hierarchical levels. A river reach is defined as a stretch between two tributaries, or between the start/end of the network and a tributary.</strong></p>
+</div>
+<p>It should be noted that the quality of HydroSHEDS data is significantly inferior for regions above 60 degrees northern latitude as there are no underlying SRTM elevation data available and thus a
+coarser scale DEM has been inserted (HYDRO1k provided by USGS).</p>
+<div id="data-format-and-distribution" class="section level3 unnumbered">
+<h3>Data format and distribution</h3>
+<p><em>a) Data format and projection</em></p>
+<p>HydroATLAS is publicly available for download at<a href="http://www.hydrosheds.org/page/hydroatlas"></a>
+and from the figshare data repository at<a href="https://doi.org/10.6084/m9.figshare.9890531"></a>. All map
+data layers, including attribute tables, are provided in ESRI© Geodatabase and Shapefile formats.
+The data are projected in a Geographic Coordinate System using the World Geodetic System 1984
+(GCS_WGS_1984). The attribute table can also be accessed as a stand-alone file in dBASE format
+which is included in the Shapefile format. HydroATLAS data are available electronically in
+compressed zip file format. To use the data files, the zip files must first be decompressed. Each zip file includes a copy of the HydroATLAS Technical Documentation.</p>
+<p><em>b) Layer name syntax and spatial coverage</em></p>
+<p>HydroATLAS data layers are provided in two spatial extents:</p>
+<ul>
+<li>primarily as a seamless, fully global coverages;<br />
+</li>
+<li>but for some datasets also (or only) as regional tiles (see Figure 2 for definition of regions).</li>
+</ul>
+<p>The layer names follow the syntax:</p>
+<ul>
+<li><strong>BasinATLAS_v10_levXX</strong> (for BasinATLAS layers with global coverage), where XX indicates
+the Pfafstetter level (1-12);</li>
+<li><strong>RiverATLAS_v10</strong> (for RiverATLAS layer with global coverage); or</li>
+<li><strong>RiverATLAS_v10_YY</strong> (for RiverATLAS layers in regional tiles), where YY indicates the
+region.</li>
+</ul>
+<p>The regional extents are defined by a two-digit identifier:</p>
+<p><img src="rivers_reg.png" /></p>
+<p>Note that the Shapefile format is limited to a maximum file size of 2 GB; therefore the RiverATLAS
+data in Shapefile format are only provided in regional tiles (with further subdivisions into north
+and south parts where needed). Currently, all other data layers are provided in full global coverage,but more versatile regional breakdowns and data packages may be offered in future iterations.</p>
+<div class="figure">
+<img src="spatial_rep.png" alt="" />
+<p class="caption"><strong>Figure 2: Spatial extent of regional tiles of HydroATLAS layers.</strong></p>
+</div>
+<p><em>c) Available columns and column name syntax</em></p>
+<p>The attribute tables of HydroATLAS contain the pre-existing columns of HydroBASINS and
+HydroRIVERS, respectively (see their Technical Documentations at <a href="http://www.hydrosheds.org"></a> for
+details). The hydro-environmental attributes are then appended in a series of additional columns.
+This section provides information on the column name syntax used for the identification of each
+sub-basin or river reach attribute provided in the HydroATLAS database. All existing attributes and
+their associated column names are summarized in Appendix 1 and at the beginning of the
+BasinATLAS and RiverATLAS catalogs.</p>
+<p>Each hydro-environmental attribute column name has 10 digits (for example ‘dis_m3_syr’) and its
+syntax is as follows:</p>
+<pre><code>  &lt;Layer name key&gt;_&lt;Unit key&gt;_&lt;Spatial key&gt;&lt; Dimension key&gt;</code></pre>
+<p><strong>Layer name key:</strong><br />
+Three digits that describe the name of the attribute. The layer name key is unique to the
+attribute it represents. <em>Example: ‘dis’ for discharge.</em></p>
+<p><strong>Unit key:</strong><br />
+Two digits that describe the units of the attribute value. See Table 2 for possible keys.</p>
+<p><img src="table2_unit_keys.png" /></p>
+<p><strong>Spatial extent key:</strong><br />
+One digit that describes the spatial extent of the attribute. See Table 3 for possible keys.</p>
+<p><img src="table3_spatial_keys.png" /></p>
+<p><strong>Dimension key:</strong><br />
+Two digits that describe the dimension of the attribute in terms of its aggregation level or other
+type of spatio-temporal association. The dimension key can refer to a temporal dimension, a
+statistical aggregation, or a class or year association. See Table 4 for possible keys.</p>
+<p><img src="table4_dimension_keys.png" /></p>
+</div>
+</div>
+<div id="license-disclaimer-and-acknowledgement" class="section level2 unnumbered">
+<h2><strong>License, disclaimer and acknowledgement</strong></h2>
+<div id="license-agreement" class="section level3 unnumbered">
+<h3>License agreement</h3>
+<p>HydroATLAS forms a Collective Database, i.e. a collection of information from
+independent datasets, and as a whole is licensed under a Creative Commons
+Attribution 4.0 International License (CC-BY 4.0; <a href="http://creativecommons.org/licenses/by/4.0/" class="uri">http://creativecommons.org/licenses/by/4.0/</a>).
+However, the individual parts (content) of this Collective Database are still governed by their own
+licenses. In version 1.0 of HydroATLAS, all attribute columns are licensed under either a Creative
+Commons Attribution 4.0 International License (CC-BY 4.0) or an Open Data Commons Open
+Database License (ODbL 1.0; <a href="https://opendatacommons.org/licenses/odbl/1-0/index.html" class="uri">https://opendatacommons.org/licenses/odbl/1-0/index.html</a>), both
+permitting reuse of the data for any purpose including commercial. In cases where original licenses
+differ from CC-BY 4.0 or ODbL 1.0, special permission was obtained from the original author(s) to
+release their works in the format of HydroATLAS under a CC-BY 4.0 or ODbL 1.0 license. Note that
+the licenses of the underpinning source datasets in their original format are not affected or altered by these licenses. Detailed information regarding the specific license that applies to each attribute column is provided in the respective data sheet of the BasinATLAS and RiverATLAS catalogs.
+By downloading and using the data the user agrees to the terms and conditions of these licenses.</p>
+</div>
+<div id="disclaimer-of-warranty" class="section level3 unnumbered">
+<h3>Disclaimer of warranty</h3>
+<p>The HydroATLAS database and any related materials contained therein are provided “as is” without
+warranty of any kind, either express or implied, including, but not limited to, the implied warranties of merchantability, fitness for a particular purpose, noninterference, system integration, or noninfringement. The entire risk of use of the data shall be with the user. The user expressly acknowledges that the data may contain some nonconformities, defects, or errors. The authors do not warrant that the data will meet the user’s needs or expectations, that the use of the data will be uninterrupted, or that all nonconformities, defects, or errors can or will be corrected. The authors are not inviting reliance on these data, and the user should always verify actual data.</p>
+</div>
+<div id="limitation-of-liability" class="section level3 unnumbered">
+<h3>Limitation of liability</h3>
+<p>In no event shall the authors be liable for costs of procurement of substitute goods or services, lost profits, lost sales or business expenditures, investments, or commitments in connection with any business, loss of any goodwill, or for any direct, indirect, special, incidental, exemplary, or
+consequential damages arising out of the use of the HydroATLAS database and any related
+materials, however caused, on any theory of liability, and whether or not the authors have been
+advised of the possibility of such damage. These limitations shall apply notwithstanding any failure of essential purpose of any exclusive remedy.</p>
+</div>
+</div>
+<div id="data-citations-and-acknowledgements" class="section level2 unnumbered">
+<h2>Data citations and acknowledgements</h2>
+<p>When using an attribute contained in HydroATLAS, citations and acknowledgements should be
+made to both the original data source and the HydroATLAS compendium. For example, the
+following template illustrates a reference to precipitation data sourced from HydroATLAS:</p>
+<blockquote>
+<p><em>“Precipitation data from the WorldClim v1.4 database (Hijmans et al. 2005) have been used in
+the spatial format as provided by HydroATLAS v1.0 (Linke et al. 2019).”</em></p>
+</blockquote>
+<p>Information regarding the reference(s) for each hydro-environmental attribute is provided on the
+individual attribute sheets in the BasinATLAS and RiverATLAS catalogs. In addition, every data
+source may have individual requests for acknowledgements, and users of HydroATLAS are asked to
+honor those requests when using the respective attributes.</p>
+<p>General citations and acknowledgements of HydroATLAS should be made as follows:</p>
+<blockquote>
+<p>Linke, S., Lehner, B., Ouellet Dallaire, C., Ariwi, J., Grill, G., Anand, M., Beames, P., Burchard-Levine, V., Maxwell, S., Moidu, H., Tan, F., Thieme, M. (2019). Global hydro-environmental sub-basin and river reach characteristics at high spatial resolution. Scientific Data 6: 283. DOI: 10.1038/s41597-019-0300-6.&lt;</p>
+</blockquote>
+<p>We kindly ask users to cite both source data and HydroATLAS in any published material produced
+using the data. If possible, online links to the HydroATLAS website should be provided <a href="http://www.hydrosheds.org/page/hydroatlas"></a>.</p>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<ol style="list-style-type: decimal">
+<li>Lehner, B., Grill G. (2013). Global river hydrography and network routing: baseline data and new approaches to study the world’s large river systems. Hydrological Processes 27(15): 2171-2186.</li>
+<li>Lehner, B., Verdin, K., Jarvis, A. (2008). New global hydrography derived from spaceborne elevation data. Eos, Transactions, AGU 89(10): 93-94.</li>
+<li>Linke, S., Lehner, B., Ouellet Dallaire, C., Ariwi, J., Grill, G., Anand, M., Beames, P., Burchard-Levine, V., Maxwell, S., Moidu, H., Tan, F., Thieme, M. (2019). Global hydro-environmental sub-basin and river reach characteristics at high spatial resolution. Scientific Data 6: 283. <a href="DOI:%5B10.1038/s41597-019-0300-6" class="uri">DOI:[10.1038/s41597-019-0300-6</a>](<a href="https://doi.org/10.1038/s41597-019-0300-6" class="uri">https://doi.org/10.1038/s41597-019-0300-6</a>)</li>
+</ol>
+</div>
+<div id="appendix-1-attributes-included-in-version-1.0-of-hydroatlas-for-details-see-hydroatlas-catalogs" class="section level3" number="0.0.1">
+<h3><span class="header-section-number">0.0.1</span> Appendix 1: Attributes included in version 1.0 of HydroATLAS (for details see HydroATLAS catalogs)</h3>
+<template id="a13d5aa8-b542-4201-b3e9-d9dea73792b7"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-fa60d23c{}.cl-fa553a30{font-family:'Arial';font-size:8pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fa553a31{font-family:'Arial';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fa553a32{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-fa55d5a8{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fa55d5a9{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-fa60d23c'>
+<thead><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a30">ID</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a30">Category</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a30">Variable</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a30">Source Data</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a30">Citation</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a30">Column(s)</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a30">Count</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a8"><p class="cl-fa553a32"><span class="cl-fa553a31">H01</span></p></td><td class="cl-fa55d5a8"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a8"><p class="cl-fa553a32"><span class="cl-fa553a31">Natural Discharge</span></p></td><td class="cl-fa55d5a8"><p class="cl-fa553a32"><span class="cl-fa553a31">WaterGAP v2.2</span></p></td><td class="cl-fa55d5a8"><p class="cl-fa553a32"><span class="cl-fa553a31">Döll et al. 2003</span></p></td><td class="cl-fa55d5a8"><p class="cl-fa553a32"><span class="cl-fa553a31">dis_m3_---</span></p></td><td class="cl-fa55d5a8"><p class="cl-fa553a32"><span class="cl-fa553a31">x3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H02</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Land Surface Runoff</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">WaterGAP v2.2</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Döll et al. 2003</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">run_mm_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H03</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Inundation Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GIEMS-D15</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Fluet-Chouinard et al. 2015</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">inu_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x6</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H04</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Limnicity (Percent Lake Area)</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">HydroLAKES</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Messager et al. 2016</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">lka_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H05</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Lake Volume</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">HydroLAKES</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Messager et al. 2016</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">lkv_mc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H06</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Reservoir Volume</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GRanD v1.1</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Lehner et al. 2011</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">rev_mc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H07</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Degree of Regulation</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">HydroSHEDS &amp; GRanD</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Lehner et al. 2011</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">dor_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H08</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">River Area</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">HydroSHEDS &amp; WaterGAP</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Lehner &amp; Grill 2013</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">ria_ha_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H09</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">River Volume</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">HydroSHEDS &amp; WaterGAP</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Lehner &amp; Grill 2013</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">riv_tc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">H10</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hydrology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Groundwater Table Depth</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Global Groundwater Map</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Fan et al. 2013</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">gwt_cm_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">P01</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Physiography</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Elevation</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">EarthEnv-DEM90</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Robinson et al. 2014</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">ele_mt_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">P02</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Physiography</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Terrain Slope</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">EarthEnv-DEM90</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Robinson et al. 2014</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">slp_dg_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">P03</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Physiography</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Stream Gradient</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">EarthEnv-DEM90</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Robinson et al. 2014</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">sgr_dk_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C01</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate Zones</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GEnS</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Metzger et al. 2013</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">clz_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C02</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate Strata</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GEnS</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Metzger et al. 2013</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">cls_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C03</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Air Temperature</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">WorldClim v1.4</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hijmans et al. 2005</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">tmp_dc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x16</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C04</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Precipitation</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">WorldClim v1.4</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hijmans et al. 2005</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">pre_mm_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C05</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Potential Evapotranspiration</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Global-PET</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Zomer et al. 2008</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">pet_mm_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C06</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Actual Evapotranspiration</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Global Soil-Water Balance</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Trabucco &amp; Zomer 2010</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">aet_mm_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C07</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Global Aridity Index</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Global Aridity Index</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Zomer et al. 2008</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">ari_ix_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C08</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate Moisture Index</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">WorldClim &amp; Global-PET</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hijmans et al. 2005</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">cmi_ix_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">C09</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Climate</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Snow Cover Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">MODIS/Aqua</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hall &amp; Riggs 2016</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">snw_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x15</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L01</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Land Cover Classes</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GLC2000</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Bartholomé &amp; Belward 2005</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">glc_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L02</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Land Cover Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GLC2000</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Bartholomé &amp; Belward 2005</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">glc_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x44</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L03</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Potential Natural Vegetation Classes</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">EarthStat</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Ramankutty &amp; Foley 1999</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">pnv_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L04</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Potential Natural Vegetation Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">EarthStat</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Ramankutty &amp; Foley 1999</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">pnv_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x30</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L05</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Wetland Classes</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GLWD</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Lehner &amp; Döll 2004</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">wet_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L06</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Wetland Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GLWD</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Lehner &amp; Döll 2004</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">wet_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x22</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L07</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Forest Cover Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GLC2000</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Bartholomé &amp; Belward 2005</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">for_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L08</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Cropland Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">EarthStat</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Ramankutty et al. 2008</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">crp_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L09</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Pasture Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">EarthStat</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Ramankutty et al. 2008</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">pst_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L10</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Irrigated Area Extent (Equipped)</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">HID v1.0</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Siebert et al. 2015</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">ire_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L11</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Glacier Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GLIMS</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GLIMS &amp; NSIDC 2012</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">gla_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L12</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Permafrost Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">PZI</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Gruber 2012</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">prm_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L13</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Protected Area Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">WDPA</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">IUCN &amp; UNEP-WCMC 2014</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">pac_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L14</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Terrestrial Biomes</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">TEOW</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Dinerstein et al. 2017</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">tbi_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L15</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Terrestrial Ecoregions</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">TEOW</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Dinerstein et al. 2017</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">tec_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L16</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Freshwater Major Habitat Types</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">FEOW</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Abell et al. 2008</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">fmh_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">L17</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Landcover</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Freshwater Ecoregions</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">FEOW</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Abell et al. 2008</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">fec_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">S01</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soils &amp; Geology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Clay Fraction in Soil</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">SoilGrids1km</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hengl et al. 2014</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">cly_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">S02</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soils &amp; Geology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Silt Fraction in Soil</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">SoilGrids1km</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hengl et al. 2014</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">slt_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">S03</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soils &amp; Geology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Sand Fraction in Soil</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">SoilGrids1km</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hengl et al. 2014</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">snd_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">S04</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soils &amp; Geology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Organic Carbon Content in Soil</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">SoilGrids1km</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hengl et al. 2014</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">soc_th_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">S05</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soils &amp; Geology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soil Water Content</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Global Soil-Water Balance</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Trabucco &amp; Zomer 2010</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">swc_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">S06</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soils &amp; Geology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Lithological Classes</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GLiM</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Hartmann &amp; Moosdorf 2012</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">lit_cl_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">S07</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soils &amp; Geology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Karst Area Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Rock Outcrops v3.0</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Williams &amp; Ford 2006</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">kar_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">S08</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soils &amp; Geology</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Soil Erosion</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GloSEM v1.2</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Borrelli et al. 2017</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">ero_kh_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A01</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Population Count</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GPW v4</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">CIESIN 2016</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">pop_ct_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A02</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Population Density</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GPW v4</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">CIESIN 2016</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">ppd_pk_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A03</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Urban Extent</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GHS S-MOD v1.0 (2016)</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Pesaresi &amp; Freire 2016</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">urb_pc_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A04</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Nighttime Lights</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Nighttime Lights v4</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Doll 2008</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">nli_ix_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A05</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Road Density</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GRIP v4</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Meijer et al. 2018</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">rdd_mk_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A06</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Human Footprint</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Human Footprint v2</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Venter et al. 2016</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">hft_ix_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A07</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Global Administrative Areas</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GADM v2.0</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">University of Berkeley 2012</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">gad_id_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A08</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Gross Domestic Product</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">GDP PPP v2</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Kummu et al. 2018</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">gdp_ud_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">A09</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Anthropogenic</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Human Development Index</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">HDI v2</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">Kummu et al. 2018</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">hdi_ix_---</span></p></td><td class="cl-fa55d5a9"><p class="cl-fa553a32"><span class="cl-fa553a31">x1</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="12c1a83d-e916-4180-ad3e-bda3bec64ed1"></div>
+<script>
+var dest = document.getElementById("12c1a83d-e916-4180-ad3e-bda3bec64ed1");
+var template = document.getElementById("a13d5aa8-b542-4201-b3e9-d9dea73792b7");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="datasets.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

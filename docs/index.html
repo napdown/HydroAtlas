@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>HydroAtlas</title>
+  <meta name="description" content="A global compendium of hydro-environmental sub-basin and river reach characteristics at 15 arc-second resolution" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="HydroAtlas" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A global compendium of hydro-environmental sub-basin and river reach characteristics at 15 arc-second resolution" />
+  <meta name="github-repo" content="napdown/HydroAtlas-SnAfrica" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="HydroAtlas" />
+  
+  <meta name="twitter:description" content="A global compendium of hydro-environmental sub-basin and river reach characteristics at 15 arc-second resolution" />
+  
+
+<meta name="author" content="A Team" />
+
+
+<meta name="date" content="2022-02-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="technical-documentation-version-1.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">HydroAtlas Attributes for Southern African Countries</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html"><i class="fa fa-check"></i>Technical Documentation Version 1.0</a>
+<ul>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#background-and-introduction"><i class="fa fa-check"></i>Background and introduction</a></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#methods-and-data-characteristics"><i class="fa fa-check"></i>Methods and data characteristics</a>
+<ul>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#data-format-and-distribution"><i class="fa fa-check"></i>Data format and distribution</a></li>
+</ul></li>
+<li><a href="technical-documentation-version-1.html#license-disclaimer-and-acknowledgement"><strong>License, disclaimer and acknowledgement</strong></a>
+<ul>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#license-agreement"><i class="fa fa-check"></i>License agreement</a></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#disclaimer-of-warranty"><i class="fa fa-check"></i>Disclaimer of warranty</a></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#limitation-of-liability"><i class="fa fa-check"></i>Limitation of liability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#data-citations-and-acknowledgements"><i class="fa fa-check"></i>Data citations and acknowledgements</a>
+<ul>
+<li class="chapter" data-level="" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#references"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="0.0.1" data-path="technical-documentation-version-1.html"><a href="technical-documentation-version-1.html#appendix-1-attributes-included-in-version-1.0-of-hydroatlas-for-details-see-hydroatlas-catalogs"><i class="fa fa-check"></i><b>0.0.1</b> Appendix 1: Attributes included in version 1.0 of HydroATLAS (for details see HydroATLAS catalogs)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="datasets.html"><a href="datasets.html"><i class="fa fa-check"></i><b>1</b> Datasets</a>
+<ul>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#natural-discharge"><i class="fa fa-check"></i>Natural Discharge</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#land-surface-runoff"><i class="fa fa-check"></i>Land Surface Runoff</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#inundation-extent"><i class="fa fa-check"></i>Inundation Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#limnicity-percent-lake-area"><i class="fa fa-check"></i>Limnicity (Percent Lake Area)</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#lake-volume"><i class="fa fa-check"></i>Lake Volume</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#reservoir-volume"><i class="fa fa-check"></i>Reservoir Volume</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#degree-of-regulation"><i class="fa fa-check"></i>Degree of Regulation</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#river-area"><i class="fa fa-check"></i>River Area</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#river-volume"><i class="fa fa-check"></i>River Volume</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#groundwater-table-depth"><i class="fa fa-check"></i>Groundwater Table Depth</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#elevation"><i class="fa fa-check"></i>Elevation</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#terrain-slope"><i class="fa fa-check"></i>Terrain Slope</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#stream-gradient"><i class="fa fa-check"></i>Stream Gradient</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#climate-zones"><i class="fa fa-check"></i>Climate Zones</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#climate-strata"><i class="fa fa-check"></i>Climate Strata</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#air-temperature"><i class="fa fa-check"></i>Air Temperature</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#precipitation"><i class="fa fa-check"></i>Precipitation</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#potential-evapotranspiration"><i class="fa fa-check"></i>Potential Evapotranspiration</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#actual-evapotranspiration"><i class="fa fa-check"></i>Actual Evapotranspiration</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#global-aridity-index"><i class="fa fa-check"></i>Global Aridity Index</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#climate-moisture-index"><i class="fa fa-check"></i>Climate Moisture Index</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#snow-cover-extent"><i class="fa fa-check"></i>Snow Cover Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#land-cover-classes"><i class="fa fa-check"></i>Land cover Classes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#land-cover-extent"><i class="fa fa-check"></i>Land Cover Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#potential-natural-vegetation-classes"><i class="fa fa-check"></i>Potential Natural Vegetation Classes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#potential-natural-vegetation-extent"><i class="fa fa-check"></i>Potential Natural vegetation Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#wetland-classes"><i class="fa fa-check"></i>Wetland Classes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#wetland-extent"><i class="fa fa-check"></i>Wetland Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#forest-cover-extent"><i class="fa fa-check"></i>Forest Cover Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#cropland-extent"><i class="fa fa-check"></i>Cropland Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#pasture-extent"><i class="fa fa-check"></i>Pasture Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#irrigated-area-extent-equipped"><i class="fa fa-check"></i>Irrigated Area Extent (Equipped)</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#glacier-extent"><i class="fa fa-check"></i>Glacier Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#permafrost-extent"><i class="fa fa-check"></i>Permafrost Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#protected-area-extent"><i class="fa fa-check"></i>Protected Area Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#terrestrial-biomes"><i class="fa fa-check"></i>Terrestrial Biomes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#terrestrial-ecoregions"><i class="fa fa-check"></i>Terrestrial Ecoregions</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#freshwater-major-habitat-types"><i class="fa fa-check"></i>Freshwater Major Habitat Types</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#freshwater-ecoregions"><i class="fa fa-check"></i>Freshwater Ecoregions</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#clay-fraction-in-soil"><i class="fa fa-check"></i>Clay Fraction in Soil</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#silt-fraction-in-soil"><i class="fa fa-check"></i>Silt Fraction in Soil</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#sand-fraction-in-soil"><i class="fa fa-check"></i>Sand Fraction in Soil</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#organic-carbon-content-in-soil"><i class="fa fa-check"></i>Organic Carbon Content in Soil</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#soil-water-content"><i class="fa fa-check"></i>Soil Water Content</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#lithological-classes"><i class="fa fa-check"></i>Lithological Classes</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#karst-area-extent"><i class="fa fa-check"></i>Karst Area Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#soil-erosion"><i class="fa fa-check"></i>Soil Erosion</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#population-count"><i class="fa fa-check"></i>Population Count</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#population-density"><i class="fa fa-check"></i>Population Density</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#urban-extent"><i class="fa fa-check"></i>Urban Extent</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#nighttime-lights"><i class="fa fa-check"></i>Nighttime Lights</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#road-density"><i class="fa fa-check"></i>Road Density</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#human-footprint"><i class="fa fa-check"></i>Human Footprint</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#global-admnistrative-areas"><i class="fa fa-check"></i>Global Admnistrative Areas</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#gross-domestic-product"><i class="fa fa-check"></i>Gross Domestic Product</a></li>
+<li class="chapter" data-level="" data-path="datasets.html"><a href="datasets.html#human-development-index"><i class="fa fa-check"></i>Human Development Index</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html"><i class="fa fa-check"></i><b>2</b> HydroATLAS_v10_Legends</a>
+<ul>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#hydroatlas-v1.0-legends"><i class="fa fa-check"></i>HydroATLAS v1.0 Legends</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#climate-zones-clz.cl"><i class="fa fa-check"></i>Climate Zones (clz.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#climate-strata-cls.cl"><i class="fa fa-check"></i>Climate Strata (cls.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#land-cover-classes-glc.cl"><i class="fa fa-check"></i>Land cover classes (glc.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#potential-natural-vegetation-classes-pnv.cl"><i class="fa fa-check"></i>Potential Natural Vegetation Classes (pnv.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#wetland-classes-wet.cl"><i class="fa fa-check"></i>Wetland Classes (wet.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#terrestrial-biomes-tbi.cl"><i class="fa fa-check"></i>Terrestrial Biomes (tbi.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#terrestrial-ecoregions-tec.cl"><i class="fa fa-check"></i>Terrestrial Ecoregions (tec.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#freshwater-major-habitat-types-fmh.cl"><i class="fa fa-check"></i>“Freshwater Major Habitat Types (fmh.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#freshwater-ecoregions-fec.cl"><i class="fa fa-check"></i>Freshwater Ecoregions (fec.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#lithological-classes-lit.cl"><i class="fa fa-check"></i>Lithological Classes (lit.cl)</a></li>
+<li class="chapter" data-level="" data-path="hydroatlas_v10_legends.html"><a href="hydroatlas_v10_legends.html#global-admnistrative-areas-gad.id"><i class="fa fa-check"></i>Global Admnistrative Areas( gad.id)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HydroAtlas</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">HydroAtlas</h1>
+<p class="author"><em>A Team</em></p>
+<p class="date"><em>2022-02-17</em></p>
+</div>
+<div id="introduction" class="section level1 unnumbered">
+<h1>Introduction</h1>
+<p>This is a regionally customized compilation of standardized and readily-available hydro-environmental attribute information for all catchments and rivers in Angola, Botswana, Namibia, Lesotho, Malawi, Mozambique, South Africa, Swaziland, Zambia and Zimbabwe.</p>
+<p>This version has been compiled from the global HydroAtlas version 1.0
+The data layers contain 56 hydro-environmental variables at sub-basin and river reach level, broken down into 256 individual attributes.
+This data represents data on</p>
+<ul>
+<li>Hydrology</li>
+<li>Climate</li>
+<li>Physiography</li>
+<li>Land cover and Use</li>
+<li>Soils and Geology</li>
+<li>Anthropogenic influences</li>
+</ul>
+<p>Please consult the <a href="technical-documentation-version-1.html#technical-documentation-version-1.0">Technical Documentation Version 1.0</a> guidance on database structure and content.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="technical-documentation-version-1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
