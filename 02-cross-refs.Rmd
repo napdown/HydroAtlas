@@ -1,13 +1,14 @@
+
 # Datasets
 
-```{r setup, include=FALSE, warning=FALSE, message=FALSE,out.width="120%"}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
-
-
+```{r setup, include=FALSE, warning=FALSE, message=FALSE,out.width='120%'}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,out.width='200%', fig.width = 100, fig.height = 100)
 
 ```
 
-```{r global, cache.comments=FALSE,comment=FALSE,warning=FALSE,message=FALSE}
+
+
+```{r global, results='hide', results=FALSE}
 
 library(sf)
 library(dplyr)
@@ -21,12 +22,12 @@ towns<-st_read("o_nap_countries/towns_aoi.shp")
 basin1<-st_read("o_nap_countries/basins1_aoi.shp")
 basin2<-st_read("o_nap_countries/basins2_aoi.shp")
 basin3<-st_read("o_nap_countries/basins3_aoi.shp")
-basin5<-st_read( "C:\\Users\\Makabe\\opennaps\\HydroAtlas\\o_nap_countries\\basins5_aoi.shp")
-basin8<-st_read( "C:\\Users\\Makabe\\opennaps\\HydroAtlas\\o_nap_countries\\basins8_aoi.shp")
+basin5<-st_read( "o_nap_countries\\basins5_aoi.shp")
+basin8<-st_read( "o_nap_countries\\basins8_aoi.shp")
 riv<-st_read( "C:\\Users\\Makabe\\opennaps\\HydroAtlas\\o_nap_countries\\rivers_aoi.shp")
-riv_bigdis<-riv%>%filter(riv$dis_m3_pyr>10)
+riv_bigdis<-riv%>%filter(riv$dis_m3_pyr>10) # optional filter for high discharge rivers
 riv_bigclas<-riv%>%filter(riv$ORD_CLAS<3)
-capitals<-towns<-filter(towns, towns$featurecla=="Admin-0 capital")
+capitals<-towns<-filter(towns, towns$featurecla=="Admin-0 capital") # filter major towns/capitals
 
 
 ```
@@ -44,6 +45,7 @@ plot(basin8[, basin8$glc_cl_smj],
 
 
 ```
+
 
 ## Natural Discharge {-}
 ```{r}
@@ -71,15 +73,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff", color=NA,size=0.5, lty=2) +
  
   geom_sf(data = riv_bigdis, lwd=0, mapping=aes(fill= riv_bigdis$dis_m3_pyr)) +
-  geom_sf(data = riv_bigdis, fill= riv_bigdis$dis_m3_pyr, color=riv_bigdis$dis_m3_pyr) +
+  geom_sf(data = riv_bigdis, fill= riv_bigdis$dis_m3_pyr, color=riv_bigdis$dis_m3_pyr, lwd=2) +
   scale_fill_viridis_c(name=paste('m³/year'))+
-  geom_sf(data= basin3, lty=1, lwd=0.85, fill=NA)+
+  geom_sf(data= basin3, lty=1, lwd=4, fill=NA)+
   geom_sf(data = capitals, color="grey40") +
-  #geom_sf_label(data = capitals, aes(label=name),size=2.4, position = "identity")+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Natural Discharge")
+  geom_sf_label(data = capitals, aes(label=name),size=30, position = "identity")+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Natural Discharge")  
+ theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(8, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
 
 ```
+ 
+**** 
 
 ## Land Surface Runoff {-}
 
@@ -111,15 +118,21 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, lwd=0, mapping=aes(fill=run_mm_syr),color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('mm/yr'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40", size=4,pch=20, alpha=0.9, show.legend = T) +
-  #geom_sf_label(data = capitals, aes(label=name),size=1.8)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Land Surface Runoff")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Land Surface Runoff")
   #theme(legend.position = 'bottom', legend.title = element_text('mm/yr'))
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Inundation Extent {-}
 ```{r}
@@ -144,21 +157,25 @@ t1
 
 ```{r}
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
 
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=inu_pc_slt), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Inundation extent'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Inundation Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Inundation Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+---
 
 ## Limnicity (Percent Lake Area) {-}
 
@@ -188,15 +205,21 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=lka_pc_sse*0.1), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Limnicity (Percent Lake Area)")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Limnicity (Percent Lake Area)")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
 
+ **** 
+ 
 ## Lake Volume {-}
 ```{r}
 attributes<-read_excel("attributes.xlsx", sheet = 'attributes')
@@ -224,14 +247,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=lkv_mc_usu*0.001), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Upstream Total \n million m³'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Lake Volume")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Lake Volume")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Reservoir Volume {-}
 ```{r}
@@ -256,21 +285,24 @@ t1
 
 ```{r}
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
-
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=rev_mc_usu), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Upstream Total \n million m³'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Reservoir Volume")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Reservoir Volume")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Degree of Regulation {-}
 ```{r}
@@ -295,21 +327,26 @@ t1
 
 ```{r}
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
-
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
-  #geom_sf(data = basin5, aes(fill=dor_pc_pva), color=NA) +
-  #scale_fill_viridis_c(direction = -1, name=paste('DOR \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
-  geom_sf(data = riv_bigdis, color=riv_bigdis$dis_m3_pyr) +
+  geom_sf(data = basin5, aes(fill=dor_pc_pva), color=NA) +
+  scale_fill_viridis_c(direction = -1, name=paste('DOR \n %'))+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
+  #geom_sf(data = riv_bigdis, color=riv_bigdis$dor_pc_pva,lwd=2) +
   #scale_fill_viridis_c(name=paste('DOR \n %'))+
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  ggtitle("Degree of Regulation")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Degree of Regulation")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+
+**** 
 
 ## River Area {-}
 
@@ -335,21 +372,24 @@ t1
 
 ```{r}
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
-
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=ria_ha_ssu), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n hectares'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("River Area")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("River Area")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## River Volume {-}
 
@@ -375,21 +415,25 @@ t1
 
 ```{r}
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
 
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=riv_tc_ssu*0.001), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Total Volume \n \'000 m³'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("River Volume")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("River Volume")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Groundwater Table Depth {-}
 
@@ -415,21 +459,24 @@ t1
 
 ```{r}
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
-
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=gwt_cm_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average Depth \n cm'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Groundwater Table Depth")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Groundwater Table Depth")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Elevation {-}
 ```{r}
@@ -454,21 +501,24 @@ t1
 
 ```{r}
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
-
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=ele_mt_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average Elevation \n m a.s.l'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Elevation")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Elevation")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Terrain Slope {-}
 
@@ -494,21 +544,24 @@ t1
 
 ```{r}
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
-
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=basin5$slp_dg_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average Slope \n degrees'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Terrain Slope")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Terrain Slope")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Stream Gradient {-}
 ```{r}
@@ -540,14 +593,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=sgr_dk_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average Gradient \n decimeters per km'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Stream Gradient")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Stream Gradient")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Climate Zones {-}
 
@@ -582,16 +641,20 @@ ggplot() +
                                    ),limits=c(6.8,18.5),  
                  space = "Lab",name=paste("Classes"),na.value = NA, guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
  
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   #geom_sf(data = riv_bigdis, color='#8282FF') +
   geom_sf(data = capitals, fill="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text", x=31, y=-34.5, label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Climate Zones")+
-  theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=7),legend.position = c(1.24, .24), legend.background = element_blank())
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text", x=30, y=-35, label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Climate Zones")+
+ theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
 
+**** 
 
 ## Climate Strata {-}
 
@@ -621,20 +684,24 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=cls_cl_smj), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste(''))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.6, bgcolor='none')+
-  geom_sf_text(data = basin5, aes(label=cls_cl_smj),size=3, check_overlap = T)+
-  ggtitle("Climate Strata")+
-  #annotate("text", x=34, y=-34.5, label = "*Check table[clz.cl]for classes")+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  geom_sf_label(data = capitals, aes(label=name),size=30, bgcolor='none')+
+  geom_sf_text(data = basin5, aes(label=cls_cl_smj),size=20, check_overlap = T)+
+  #ggtitle("Climate Strata")+
+  annotate("text", x=30, y=-34, label = "*Check table for classes", size=40)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())+
 
   theme(legend.position = 'none')
 
+
 ```
 
-
+**** 
 
 ## Air Temperature {-}
 ```{r}
@@ -666,15 +733,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=tmp_dc_syr), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n °C'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Air Temperature")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Air Temperature")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
 
+**** 
 
 ## Precipitation {-}
 ```{r}
@@ -704,14 +776,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=basin5$pre_mm_syr), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n mm'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Precipitation")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Precipitation")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Potential Evapotranspiration {-}
 
@@ -742,14 +820,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=pet_mm_syr), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n mm'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Potential Evapotranspiration")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Potential Evapotranspiration")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+****  
 
 ## Actual Evapotranspiration {-}
 
@@ -780,14 +864,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=aet_mm_syr), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n mm'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Actual Evapotranspiration")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Actual Evapotranspiration")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Global Aridity Index {-}
 
@@ -820,14 +910,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=basin5$ari_ix_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average AI \n value'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Global Aridity Index")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Global Aridity Index")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Climate Moisture Index  {-}
 
@@ -857,14 +953,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=cmi_ix_syr), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n index value'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Climate Moisture Index")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Climate Moisture Index")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Snow Cover Extent {-}
 
@@ -894,14 +996,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=snw_pc_syr), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Annual Average \n % cover'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Snow Cover Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Snow Cover Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Land cover Classes {-}
 
@@ -935,17 +1043,19 @@ ggplot() +
                                    "#cbcc64",  "#f678b5", "#ffe9bb","#005be7"),limits=c(1,20),  
                  space = "Lab",name=paste("Land Cover"),na.value = NA, guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
  
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   #geom_sf(data = riv_bigdis, color='#8282FF') +
   geom_sf(data = capitals, fill="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Land Cover Classes")+
-  theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=7),legend.position = c(1.24, .24), legend.background = element_blank())
-
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  #ggtitle("Land Cover Classes")+
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
 
 ```
 
+**** 
  
 ## Land Cover Extent {-}
 
@@ -974,14 +1084,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=glc_pc_s01), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Land Cover Extent: Tree cover, broadleaved, evergreen")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Land Cover Extent: Tree cover, broadleaved, evergreen")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Potential Natural Vegetation Classes {-}
 ```{r}
@@ -1015,18 +1131,22 @@ ggplot() +
                                    "#cbcc64",  "#f678b5"),limits=c(0,14),  
                  space = "Lab",name=paste("Classes"),na.value = NA, guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
  
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   #geom_sf(data = riv_bigdis, color='#8282FF') +
   geom_sf(data = capitals, fill="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text", x=30, y=-34, label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Potential Natural Vegetation Classes")+
-  theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=7),legend.position = c(1.24, .24), legend.background = element_blank())
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text", x=30, y=-34, label = "_____  Major Basin ", color="grey40")+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Potential Natural Vegetation Classes")+
+ theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 
 
 ```
 
+**** 
 
 ## Potential Natural vegetation Extent {-}
 ```{r}
@@ -1058,14 +1178,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=pnv_pc_s01), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Potential Natural Vegtation Extent: Tropical Evergreen")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Potential Natural Vegtation Extent: Tropical Evergreen")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Wetland Classes {-}
 ```{r}
@@ -1093,24 +1219,27 @@ ggplot() +
   
   geom_sf(data = basin8, aes(fill=wet_cl_smj), color=NA) +
   scale_fill_gradientn(breaks=c(1,2,3,4,6,7,9), 
-                       labels=c("Lake","Reservoir", "River", "Freshwater marsh, floodplain", "Coastal wetland \n(incl. mangove, estuary, \ndelta, lagoon)", "Pan, brackish/saline wetland", "Intermittent wetland/lake"), 
+                       labels=c("Lake","Reservoir", "River", "Freshwater marsh, floodplain", "Coastal wetland (incl. mangove,\n estuary, delta, lagoon)", "Pan, brackish/saline wetland", "Intermittent wetland/lake"), 
                        colours = c("#002573", "#e60000", "#7e00a4","#0167eb","#fca57b","#fffa06",
                                    "71defd"),limits=c(1,9),  
                  space = "Lab",name=paste("Classes"),na.value = 'grey', guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
  
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   #geom_sf(data = riv_bigdis, color='#8282FF') +
   geom_sf(data = capitals, fill="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text", x=34, y=-33, label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Wetland Classes")+
-  annotate("text", x=34, y=-34.5, label = "*Grey area=No values")+
- theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=8),legend.position = c(1.20, .24), legend.background = element_blank())
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text", x=30, y=-34, label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Wetland Classes")+
+  annotate("text", x=30, y=-35.5, label = "*Grey area=No values", size=40)+
+ theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 
 ```
 
-
+**** 
 
 ## Wetland Extent {-}
 ```{r}
@@ -1139,13 +1268,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=wet_pc_s01), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  ggtitle("Wetland Extent: Class 01")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Wetland Extent: Class 01")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Forest Cover Extent {-}
 ```{r}
@@ -1174,14 +1310,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=for_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Forest Cover Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Forest Cover Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Cropland Extent {-}
 ```{r}
@@ -1211,14 +1353,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=crp_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Cropland Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Cropland Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Pasture Extent {-}
 ```{r}
@@ -1248,14 +1396,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=pst_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Pasture Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Pasture Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Irrigated Area Extent (Equipped) {-}
 ```{r}
@@ -1285,14 +1439,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=crp_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Irrigated Area Extent (Equipped)")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Irrigated Area Extent (Equipped)")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Glacier Extent {-}
 ```{r}
@@ -1321,14 +1481,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=gla_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Glacier Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Glacier Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Permafrost Extent {-}
 ```{r}
@@ -1357,14 +1523,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=prm_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Permafrost Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Permafrost Extent")
+
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
 
 ```
+
+**** 
 
 ## Protected Area Extent {-}
 ```{r}
@@ -1393,14 +1565,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=pac_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Protected Area Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Protected Area Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Terrestrial Biomes {-}
 ```{r}
@@ -1432,17 +1610,21 @@ ggplot() +
                        colours = c("#267300", "#72a700", "#6fa701","#89cd63","#c4f26f"),limits=c(0,13),  
                  space = "Lab",name=paste("Classes"),na.value = NA, guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
  
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   #geom_sf(data = riv_bigdis, color='#8282FF') +
   geom_sf(data = capitals, fill="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Terrestrial Biomes")
- theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=8),legend.position = c(1.20, .24), legend.background = element_blank())
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Terrestrial Biomes")
+ theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 
 ```
 
+**** 
 
 ## Terrestrial Ecoregions {-}
 ```{r}
@@ -1467,28 +1649,28 @@ t1
 
 ```{r }
 
-#scale_fill_gradientn(colours = terrain.colors(10),limits=c(0,100),  
-                 #space = "Lab",name=paste("Inundation Extent /%"),na.value = NA)
-
 ggplot() + 
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=tec_cl_smj), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
-  #geom_line(aes(x=35, y=-35), label="Basin boundary")+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
+  #geom_line(aes(x=35, y=-35), label=" Major Basin ")+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.6, bgcolor='none')+
-  geom_sf_text(data = basin5, aes(label=tec_cl_smj),size=3, check_overlap = T)+
-  ggtitle("Terrestrial Ecoregions")+
-  annotate("text", x=34, y=-34.5, label = "*Check table for classes")+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
+  geom_sf_label(data = capitals, aes(label=name),size=30, bgcolor='none')+
+  geom_sf_text(data = basin5, aes(label=tec_cl_smj),size=20, check_overlap = T)+
+  #ggtitle("Terrestrial Ecoregions")+
+  annotate("text", x=30, y=-34, label = "*Check table for classes", size=40)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position = c(.89, .10), legend.background = element_blank())+
 
   theme(legend.position = 'none')
 
 ```
 
-* Check table [tec_cl] for class names
+**** 
 
 ## Freshwater Major Habitat Types {-}
 ```{r}
@@ -1517,21 +1699,26 @@ ggplot() +
   
   geom_sf(data = basin5, aes(fill=fmh_cl_smj), color=NA) +
   scale_fill_gradientn(breaks=c(1.2,3,4,5,6,8,9,10.1), 
-                       labels=c("LargeLakes","Montane freshwaters", "Xeric freshwaters \nand endorheic basins", "Temperate coastal rivers", "Temperate upland rivers", "Tropical and subtropical \ncoastal rivers", "Tropical and subtropical \nupland rivers","Tropical and subtropical \nfloodplain rivers \nand wetlands"), 
+                       labels=c("LargeLakes","Montane freshwaters", "Xeric freshwaters \nand endorheic basins", "Temperate coastal rivers", "Temperate upland rivers", "Tropical and subtropical \ncoastal rivers", "Tropical and subtropical \nupland rivers","Tropical and subtropical \nfloodplain rivers and wetlands"), 
                        colours = c("#02c5ff", "#a63800", "#f4c97a","#004da7","#a83c7a","#38a700",
                                    "276300","#779c33"),limits=c(0.8,10.2),  
                  space = "Lab",name=paste("Classes"),na.value = 'grey', guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
  
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   #geom_sf(data = riv_bigdis, color='#8282FF') +
   geom_sf(data = capitals, fill="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Freshwater Major Habitat Types")+
-theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=8),legend.position = c(1.20, .24), legend.background = element_blank())
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Freshwater Major Habitat Types")+
+ theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 
 ```
+
+**** 
 
 
 ## Freshwater Ecoregions {-}
@@ -1561,22 +1748,25 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=fec_cl_smj), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste(''))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.6, bgcolor='none')+
-  geom_sf_text(data = basin5, aes(label=fec_cl_smj),size=3, check_overlap = T)+
-  ggtitle("Freshwater Ecoregions")+
-  annotate("text", x=34, y=-34.5, label = "*Check table for classes")+
-  annotate("text", x=34, y=-33, label = "_____ Basin boundary", color="grey40")+
+  geom_sf_label(data = capitals, aes(label=name),size=35, bgcolor='none')+
+  geom_sf_text(data = basin5, aes(label=fec_cl_smj),size=20, check_overlap = T)+
+  #ggtitle("Freshwater Ecoregions")+
+  annotate("text", x=30, y=-35.5, label = "*Check table for classes", size=40)+
+  annotate("text", x=30, y=-34, label = "_____  Major Basin ", color="grey40",size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())+
+
 
   theme(legend.position = 'none')
 
 ```
 
 
-* Check table [fec_cl] for class names 
-
+**** 
 
 ## Clay Fraction in Soil {-}
 ```{r}
@@ -1606,14 +1796,21 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=cly_pc_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average \nfraction in\n top 5cm \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Clay Fraction in Soil")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Clay Fraction in Soil")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+
+**** 
 
 ## Silt Fraction in Soil {-}
 ```{r}
@@ -1642,14 +1839,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=slt_pc_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average \nfraction in \ntop 5cm \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Silt Fraction in Soil")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Silt Fraction in Soil")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Sand Fraction in Soil {-}
 ```{r}
@@ -1678,14 +1881,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=snd_pc_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average \nfraction in \ntop 5cm \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Sand Fraction in Soil")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Sand Fraction in Soil")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Organic Carbon Content in Soil {-}
 ```{r}
@@ -1715,14 +1924,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=soc_th_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average carbon \nstock in top 5cm \n tonnes/hectare'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Organic Carbon Content in Soil")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Organic Carbon Content in Soil")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Soil Water Content {-}
 ```{r}
@@ -1751,14 +1966,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=snw_pc_syr), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average \nwater content \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Soil Water Content")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Soil Water Content")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Lithological Classes {-}
 ```{r}
@@ -1791,18 +2012,21 @@ ggplot() +
                                    "03c2ff"),limits=c(0,11),  
                  space = "Lab",name=paste("Classes"),na.value = 'grey', guide = 'colourbar', aesthetics = 'fill', n.breaks=10)+
  
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   #geom_sf(data = riv_bigdis, color='#8282FF') +
   geom_sf(data = capitals, fill="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Lithological Classes")+
-   theme(legend.key.size = unit(0.8, 'cm'),legend.title = element_text(size=10),legend.text = element_text(size=7),legend.position = c(1.24, .24), legend.background = element_blank())
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Lithological Classes")+
+   theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 
 ```
 
-
+**** 
 
 ## Karst Area Extent {-}
 ```{r}
@@ -1831,14 +2055,21 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=kar_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste(' '))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Karst Area Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Karst Area Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+
+**** 
 
 ## Soil Erosion {-}
 
@@ -1869,14 +2100,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=ero_kh_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average rate \n kg/hectare/year'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Soil Erosion")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Soil Erosion")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Population Count {-}
 
@@ -1906,14 +2143,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=pop_ct_ssu), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Total population \n number of people'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Population Count")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Population Count")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Population Density {-}
 
@@ -1944,14 +2187,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=ppd_pk_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Population density \n people/km²'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Population Density")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Population Density")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Urban Extent {-}
 
@@ -1982,14 +2231,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=urb_pc_sse), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Spatial Extent \n %'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Urban Extent")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Urban Extent")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Nighttime Lights {-}
 
@@ -2020,14 +2275,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=nli_ix_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average radiance \n digital number'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Nighttime Lights")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Nighttime Lights")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Road Density {-}
 
@@ -2058,14 +2319,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=rdd_mk_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average density \n meters/km²'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Road Density")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Road Density")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Human Footprint {-}
 
@@ -2096,14 +2363,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=hft_ix_s09), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average footprint \nindex value'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Human Foootprint:2009")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Human Foootprint:2009")
+   theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Global Admnistrative Areas {-}
 
@@ -2133,27 +2406,32 @@ ggplot() +
   
   geom_sf(data = basin5, aes(fill=gad_id_smj), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste(''))+
-  #geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  #geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=1.8)+
   #geom_sf(data = riv_bigdis,fill="#4fffff") +
   #geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4, bgcolor='none')+
+  #geom_sf_label(data = capitals, aes(label=name),size=2.4, bgcolor='none')+
   #geom_sf_text(data = basin5, aes(label=gad_id_smj),size=3, check_overlap = T)+
   #geom_sf(data = admin0_aoi, fill=NA, color='gray') +
-  ggtitle("Global Admnistrative Areas")+
-  annotate("text", x=16, y=-12, label = "Angola")+
-  annotate("text", x=24, y=-20, label = "Botswana")+
-  annotate("text", x=16, y=-22, label = "Namibia")+
-  annotate("text", x=31.5, y=-26.5, label = "Lesotho")+
-  annotate("text", x=33.4, y=-13, label = "Malawi")+
-  annotate("text", x=35, y=-18, label = "Mozambique")+
-  annotate("text", x=23, y=-30, label = "South Africa")+
-  annotate("text", x=28.4, y=-29.6, label = "Eswatini")+
-  annotate("text", x=25, y=-14, label = "Zambia")+
-  annotate("text", x=30, y=-20, label = "Zimbabwe")+
+  #ggtitle("Global Admnistrative Areas")+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  annotate("text", x=16, y=-12, label = "Angola", size=36)+
+  annotate("text", x=24, y=-20, label = "Botswana", size=36)+
+  annotate("text", x=16, y=-22, label = "Namibia", size=36)+
+  annotate("text", x=31.5, y=-26.5, label = "Lesotho", size=36)+
+  annotate("text", x=33.4, y=-13, label = "Malawi", size=36)+
+  annotate("text", x=35, y=-18, label = "Mozambique", size=36)+
+  annotate("text", x=23, y=-30, label = "South Africa", size=36)+
+  annotate("text", x=28.4, y=-29.6, label = "Eswatini", size=36)+
+  annotate("text", x=25, y=-14, label = "Zambia", size=36)+
+  annotate("text", x=30, y=-20, label = "Zimbabwe", size=36)+
+ theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position = c(.89, .10), legend.background = element_blank())+
+
   theme(legend.position = 'none')
 
 ```
 
+**** 
 
 ## Gross Domestic Product {-}
 
@@ -2186,14 +2464,20 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=gdp_ud_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average GDP\n per capita \n us $'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Gross Domestic Product")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Gross Domestic Product")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
+
+**** 
 
 ## Human Development Index {-}
 
@@ -2225,11 +2509,15 @@ ggplot() +
   #geom_sf(data = admin0_aoi, fill="#ffffff") +
   geom_sf(data = basin5, aes(fill=hdi_ix_sav), color=NA) +
   scale_fill_viridis_c(direction = -1, name=paste('Average HDI \nindex value'))+
-  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=0.85)+
+  geom_sf(data= basin3, fill=NA, alpha=0.5, lty=1, lwd=4)+
   geom_sf(data = riv_bigdis,fill="#4fffff") +
   geom_sf(data = capitals, color="grey40") +
-  geom_sf_label(data = capitals, aes(label=name),size=2.4)+
-  annotate("text",x=34, y=-33,label = "_____ Basin boundary", color="grey40")+
-  ggtitle("Human Development Index")
+  geom_sf_label(data = capitals, aes(label=name),size=35)+
+  annotate("text",x=30, y=-35,label = "_____  Major Basin ", color="grey40", size=40)+
+  xlab('Longitude')+
+  ylab('Latitude')+
+  #ggtitle("Human Development Index")
+  theme(axis.text=element_text(size=90),axis.title=element_text(size=100,face="bold"), legend.key.size = unit(7, 'cm'),legend.title = element_text(size=98, face = 'bold'),legend.text = element_text(size=82),legend.position =  c(.89, .10), legend.background = element_blank())
+
 
 ```
